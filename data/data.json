@@ -1,0 +1,15 @@
+{
+    "images": "images",
+    "products": {
+        "kat1": [
+            {
+            "name": "Test1",
+            "preis": 1
+            },
+            {
+            "name": "Test2",
+            "preis": 2
+            }
+        ]
+    }
+}
