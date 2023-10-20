@@ -27,17 +27,3 @@ Um einen genauen Überblick über die Ein- und Ausgabefelder zu erhalten, siehe 
 
 ![Bild 2](picture2.png)
 
-## Installation:
-
-1. Laden Sie das Repository herunter und entpacken Sie es.
-2. Öffnen Sie das Projekt mit Visual Studio oder VS Code.
-3. Stellen Sie sicher, dass die benötigte JSON-Bibliothek installiert ist.
-4. Führen Sie das Programm aus und beginnen Sie mit dem Einkaufen!
-
-## Unterstützung:
-
-Falls Sie Fragen oder Anregungen zu dieser Anwendung haben, können Sie gerne ein Issue in unserem GitHub-Repository erstellen.
-
-## Lizenz:
-
-Dieses Projekt steht unter einer MIT-Lizenz.
