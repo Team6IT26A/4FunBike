@@ -1,6 +1,6 @@
 ﻿namespace _4FunBike
 {
-    partial class Form1
+    partial class ShopApplication
     {
         /// <summary>
         ///  Required designer variable.
