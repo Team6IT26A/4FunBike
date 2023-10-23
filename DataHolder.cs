@@ -8,9 +8,10 @@ namespace _4FunBike
     public class DataHolder
     {
         private static DataHolder instance;
-        public static String DataFilePath = "C:\\Users\\mail\\OneDrive\\Dokumente\\GitHub\\4FunBike\\data\\data.json";
+        public static String DataFilePath = "C:\\Users\\Linus\\OneDrive\\Dokumente\\GitHub\\Team6IT26A\\4FunBike\\data\\data.json";
         public String ImageFolderPath { get; set; }
-        public List<Category> Products { get; set; }
+        public List<Category> CatProducts { get; set; }
+        public List<Product> Products { get; set; }
 
         public void ReadFile()
         {
@@ -25,24 +26,27 @@ namespace _4FunBike
 
                 ImageFolderPath = parsedData.images;
 
-                Products = new List<Category>();
+                CatProducts = new List<Category>();
+                Products = new List<Product>();
                 foreach (var productCategory in parsedData.products)
                 {
                     var categoryProducts = new List<Product>();
                     foreach (var productData in productCategory.Value)
                     {
-                        categoryProducts.Add(new Product
+                        Product temp = new Product
                         {
                             Name = productData.name,
                             Price = productData.preis
-                        });
+                        };
+                        categoryProducts.Add(temp);
+                        Products.Add(temp);
                     }
                     var category = new Category
                     {
                         Name = productCategory.Key,
                         Products = categoryProducts
                     };
-                    Products.Add(category);
+                    CatProducts.Add(category);
                 }
             }
             else
@@ -58,7 +62,7 @@ namespace _4FunBike
             Console.WriteLine("DataHolder initialized.");
         }
 
-        public static DataHolder GetDataHolder()
+        public static DataHolder GetInstance()
         {
             if (instance == null)
             {

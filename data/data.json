@@ -1,14 +1,14 @@
 {
-    "images": "C:\\Users\\mail\\OneDrive\\Dokumente\\GitHub\\4FunBike\\images",
+    "images": "C:\\Users\\Linus\\OneDrive\\Dokumente\\GitHub\\Team6IT26A\\4FunBike\\data\\data.json",
     "products": {
         "kat1": [
             {
-            "name": "Test1",
-            "preis": 1
+                "name": "Test1",
+                "preis": 1
             },
             {
-            "name": "Test2",
-            "preis": 2
+                "name": "Test2",
+                "preis": 2
             }
         ]
     }
