@@ -1,98 +1,116 @@
-namespace _4FunBike;
-
+// CustomItem.cs
 using System;
 using System.Drawing;
 using System.Windows.Forms;
 
-public class CustomItem : UserControl
+namespace _4FunBike
 {
-    private PictureBox pictureBox;
-    private Label lblPrice;
-    private Button btnOne;
-    private Button btnTwo;
-    private Label lblDescription;
-
-    public CustomItem()
+    public class CustomItem : UserControl
     {
-        InitializeComponents();
-    }
+        private PictureBox pictureBox;
+        private Label lblName;
+        private Label lblPrice;
+        private Button btnAdd;
+        private Button btnSubtract;
 
-    private void InitializeComponents()
-    {
-        pictureBox = new PictureBox
+        public CustomItem()
         {
-            Size = new Size(100, 100),
-            Location = new Point(5, 5),
-            BorderStyle = BorderStyle.Fixed3D
-        };
+            InitializeComponents();
+        }
 
-        lblPrice = new Label
+        private void InitializeComponents()
         {
-            Location = new Point(110, 5),
-            Size = new Size(80, 20),
-            TextAlign = ContentAlignment.MiddleRight
-        };
+            pictureBox = new PictureBox
+            {
+                SizeMode = PictureBoxSizeMode.StretchImage,
+                BorderStyle = BorderStyle.FixedSingle,
+                Size = new Size(100, 100), // Fixed size for the picture box.
+            };
 
-        btnOne = new Button
+            lblName = new Label
+            {
+                TextAlign = ContentAlignment.MiddleLeft,
+                Size = new Size(200, 100), // Make sure this size accommodates your text.
+            };
+
+            lblPrice = new Label
+            {
+                TextAlign = ContentAlignment.MiddleLeft,
+                Size = new Size(100, 100), // Make sure this size accommodates your text.
+            };
+
+            btnAdd = new Button
+            {
+                Text = "+",
+                Size = new Size(50, 100), // The width and height can be adjusted as needed.
+            };
+
+            btnSubtract = new Button
+            {
+                Text = "-",
+                Size = new Size(50, 100), // The width and height can be adjusted as needed.
+            };
+
+            btnAdd.Click += BtnAdd_Click;
+            btnSubtract.Click += BtnSubtract_Click;
+
+            // Add the controls to the UserControl's Controls collection.
+            Controls.Add(pictureBox);
+            Controls.Add(lblName);
+            Controls.Add(lblPrice);
+            Controls.Add(btnAdd);
+            Controls.Add(btnSubtract);
+
+            // Layout the controls horizontally.
+            int spacing = 5;
+            lblName.Location = new Point(pictureBox.Right + spacing, 0);
+            lblPrice.Location = new Point(lblName.Right + spacing, 0);
+            btnAdd.Location = new Point(lblPrice.Right + spacing, 0);
+            btnSubtract.Location = new Point(btnAdd.Right + spacing, 0);
+
+            // Set the size of the UserControl to fit its contents.
+            Size = new Size(btnSubtract.Right, pictureBox.Height);
+        }
+
+        private void BtnAdd_Click(object sender, EventArgs e)
         {
-            Location = new Point(110, 30),
-            Size = new Size(80, 25),
-            Text = "Button1"
-        };
+            OnAddButtonClicked(EventArgs.Empty);
+        }
 
-        btnTwo = new Button
+        private void BtnSubtract_Click(object sender, EventArgs e)
         {
-            Location = new Point(110, 60),
-            Size = new Size(80, 25),
-            Text = "Button2"
-        };
+            OnSubtractButtonClicked(EventArgs.Empty);
+        }
 
-        lblDescription = new Label
+        protected virtual void OnAddButtonClicked(EventArgs e)
         {
-            Location = new Point(5, 110),
-            Size = new Size(185, 20),
-            TextAlign = ContentAlignment.MiddleCenter
-        };
+            AddButtonClicked?.Invoke(this, e);
+        }
 
-        btnOne.Click += BtnOne_Click;
-        btnTwo.Click += BtnTwo_Click;
+        protected virtual void OnSubtractButtonClicked(EventArgs e)
+        {
+            SubtractButtonClicked?.Invoke(this, e);
+        }
 
-        this.Controls.Add(pictureBox);
-        this.Controls.Add(lblPrice);
-        this.Controls.Add(btnOne);
-        this.Controls.Add(btnTwo);
-        this.Controls.Add(lblDescription);
-        this.Size = new Size(200, 135);
-    }
+        public Image ItemImage
+        {
+            get => pictureBox.Image;
+            set => pictureBox.Image = value;
+        }
 
-    public Image ItemImage
-    {
-        get => pictureBox.Image;
-        set => pictureBox.Image = value;
-    }
+        public string Name
+        {
+            get => lblName.Text;
+            set => lblName.Text = value;
+        }
 
-    public decimal Price
-    {
-        get => decimal.Parse(lblPrice.Text);
-        set => lblPrice.Text = value.ToString("C");
-    }
+        public decimal Price
+        {
+            get => decimal.TryParse(lblPrice.Text, out var price) ? price : 0;
+            set => lblPrice.Text = $"{value:C}";
+        }
 
-    public string Description
-    {
-        get => lblDescription.Text;
-        set => lblDescription.Text = value;
-    }
-
-    public event EventHandler ButtonOneClicked;
-    public event EventHandler ButtonTwoClicked;
-
-    private void BtnOne_Click(object sender, EventArgs e)
-    {
-        ButtonOneClicked?.Invoke(this, e);
-    }
-
-    private void BtnTwo_Click(object sender, EventArgs e)
-    {
-        ButtonTwoClicked?.Invoke(this, e);
+        public event EventHandler AddButtonClicked;
+        public event EventHandler SubtractButtonClicked;
     }
 }
