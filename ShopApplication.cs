@@ -15,13 +15,15 @@ namespace _4FunBike
             InitializeComponent();
             customItems = new List<CustomItem>();
 
+
             panel = new FlowLayoutPanel
             {
                 Dock = DockStyle.Fill,
-                AutoSize = false,
-                AutoSizeMode = AutoSizeMode.GrowAndShrink,
+                AutoSize = true,
+                AutoSizeMode = AutoSizeMode.GrowOnly,
                 AutoScroll = true,
-                FlowDirection = FlowDirection.TopDown // Stack items vertically
+                FlowDirection = FlowDirection.TopDown, // Stack items vertically
+                WrapContents = false, // Prevent wrapping to the next line
             };
             productsTab.Controls.Add(panel);
 
