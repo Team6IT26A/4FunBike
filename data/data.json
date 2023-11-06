@@ -3,15 +3,31 @@
     "products": {
         "kat1": [
             {
-                "name": "Test1",
+                "name": "Fahrrad",
                 "preis": 1
             },
             {
-                "name": "Test2",
+                "name": "Rennrad",
                 "preis": 2
             },
             {
-                "name": "Test3",
+                "name": "Mountainbike",
+                "preis": 3
+            },
+            {
+                "name": "Mountainbike",
+                "preis": 3
+            },
+            {
+                "name": "Mountainbike",
+                "preis": 3
+            },
+            {
+                "name": "Mountainbike",
+                "preis": 3
+            },
+            {
+                "name": "Mountainbike",
                 "preis": 3
             }
         ]
