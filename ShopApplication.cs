@@ -11,48 +11,31 @@ namespace _4FunBike
         private FlowLayoutPanel panel;
 
         public ShopApplication()
-    {
-        InitializeComponent();
-        customItems = new List<CustomItem>();
-
-        // Set up a FlowLayoutPanel to contain the CustomItems and manage their layout
-        panel = new FlowLayoutPanel
         {
-            Dock = DockStyle.Fill,
-            AutoSize = true,
-            AutoSizeMode = AutoSizeMode.GrowAndShrink,
-            FlowDirection = FlowDirection.TopDown // Stack items vertically
-        };
-        Controls.Add(panel);
+            InitializeComponent();
+            customItems = new List<CustomItem>();
 
-        // Add example CustomItems
-        for (int i = 1; i <= 5; i++)
-        {
-            CustomItem item = new CustomItem
+            // Set up a FlowLayoutPanel to contain the CustomItems and manage their layout
+            panel = new FlowLayoutPanel
             {
-                Name = "Bike Model " + i,
-                Price = 99.99m + i, // Example price
+                Dock = DockStyle.Fill,
+                AutoSize = true,
+                AutoSizeMode = AutoSizeMode.GrowAndShrink,
+                FlowDirection = FlowDirection.TopDown // Stack items vertically
             };
+            Controls.Add(panel);
 
-            // Attempt to load the image from the file path.
-            try
+            foreach(Product product in DataHolder.GetInstance().Products)
             {
-                item.ItemImage = Image.FromFile("C:\\Program Files (x86)\\Steam\\appcache\\librarycache\\730_icon.jpg");
+                CustomItem item = new CustomItem
+                {
+                    Name = product.Name,
+                    Price = product.Price,
+                    ItemImage = product.Image
+                };
+                AddCustomItem(item);
             }
-            catch (System.IO.FileNotFoundException ex)
-            {
-                MessageBox.Show("Image file not found: " + ex.Message);
-                // Set a default image or leave it blank if the image file is not found
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("An error occurred: " + ex.Message);
-                // Handle other potential exceptions here, such as unauthorized access.
-            }
-
-            AddCustomItem(item);
         }
-    }
 
         // Method to add a CustomItem to the list and panel
         public void AddCustomItem(CustomItem item)

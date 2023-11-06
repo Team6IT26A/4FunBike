@@ -38,6 +38,15 @@ namespace _4FunBike
                             Name = productData.name,
                             Price = productData.preis
                         };
+                        try
+                        {
+                            temp.Image = Image.FromFile(ImageFolderPath + "\\"+ productCategory.Key+"\\" + productData.name + ".png");
+                        }
+                        catch (Exception e)
+                        {
+                            Console.WriteLine(e);
+                            throw;
+                        }
                         categoryProducts.Add(temp);
                         Products.Add(temp);
                     }
@@ -88,6 +97,7 @@ namespace _4FunBike
         //has name and price
         public string Name { get; set; }
         public double Price { get; set; }
+        public Image Image { get; set; }
     }
 
     public struct Category

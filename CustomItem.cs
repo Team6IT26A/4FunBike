@@ -104,9 +104,9 @@ namespace _4FunBike
             set => lblName.Text = value;
         }
 
-        public decimal Price
+        public double Price
         {
-            get => decimal.TryParse(lblPrice.Text, out var price) ? price : 0;
+            get => double.TryParse(lblPrice.Text, out var price) ? price : 0;
             set => lblPrice.Text = $"{value:C}";
         }
 
