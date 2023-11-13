@@ -133,7 +133,7 @@ namespace _4FunBike
 
         private void CustomItem_ButtonClicked3(object sender, EventArgs e)
         {
-            MessageBox.Show("Thank you for your order! You have to pay " + calculatePrice() + "€");
+            MessageBox.Show("Danke für deinen Einkauf der Preis beträgt: " + calculatePrice() + "€");
             while (shoppingcart.Count != 0)
             {
                 RemoveCustomItem(0, 2);

@@ -20,7 +20,7 @@ namespace _4FunBike
             };
             btn = new Button
             {
-                Text = "Click here to make a order!!!",
+                Text = "Hier klicken zum Bestellen!",
                 Size = new Size(200, 100), // The width and height can be adjusted as needed.
                 BackColor = Color.LightBlue,
             };
