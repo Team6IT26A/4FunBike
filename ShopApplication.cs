@@ -8,15 +8,19 @@ namespace _4FunBike
     public partial class ShopApplication : Form
     {
         private List<CustomItem> customItems;
-        private FlowLayoutPanel panel;
+        private List<CustomItem> shoppingcart;
+        private FlowLayoutPanel panel1;
+        private FlowLayoutPanel panel2;
+        private OrderLabel label;
 
         public ShopApplication()
         {
             InitializeComponent();
             customItems = new List<CustomItem>();
+            shoppingcart = new List<CustomItem>();
 
 
-            panel = new FlowLayoutPanel
+            panel1 = new FlowLayoutPanel
             {
                 Dock = DockStyle.Fill,
                 AutoSize = true,
@@ -25,7 +29,24 @@ namespace _4FunBike
                 FlowDirection = FlowDirection.TopDown, // Stack items vertically
                 WrapContents = false, // Prevent wrapping to the next line
             };
-            productsTab.Controls.Add(panel);
+            panel2 = new FlowLayoutPanel
+            {
+                Dock = DockStyle.Fill,
+                AutoSize = true,
+                AutoSizeMode = AutoSizeMode.GrowOnly,
+                AutoScroll = true,
+                FlowDirection = FlowDirection.TopDown, // Stack items vertically
+                WrapContents = false, // Prevent wrapping to the next line
+            };
+            label = new OrderLabel
+            {
+                AutoSize = true
+            };
+            label.ButtonClicked += CustomItem_ButtonClicked3;
+            updatePrice();
+            productsTab.Controls.Add(panel1);
+            shoppingcardTab.Controls.Add(panel2);
+            panel2.Controls.Add(label);
 
 
             foreach (Product product in DataHolder.GetInstance().Products)
@@ -34,9 +55,10 @@ namespace _4FunBike
                 {
                     Name = product.Name,
                     Price = product.Price,
-                    ItemImage = product.Image
+                    ItemImage = product.Image,
+                    btnText = "+"
                 };
-                AddCustomItem(item);
+                AddCustomItem(item, 1);
             }
         }
 
@@ -44,44 +66,96 @@ namespace _4FunBike
 
 
         // Method to add a CustomItem to the list and panel
-        public void AddCustomItem(CustomItem item)
+        public void AddCustomItem(CustomItem item, int what)
         {
-            // Add the item to the list
-            customItems.Add(item);
+            if (what == 1)
+            {
+                // Add the item to the list
+                customItems.Add(item);
 
-            // Subscribe to the events if needed
-            item.AddButtonClicked += CustomItem_AddButtonClicked;
-            item.SubtractButtonClicked += CustomItem_SubtractButtonClicked;
+                // Subscribe to the events with correct syntax
+                item.ButtonClicked += (sender, e) => CustomItem_ButtonClicked(sender, e, customItems.IndexOf(item));
 
-            panel.Controls.Add(item);
+                panel1.Controls.Add(item);
+            }
+            else if(what == 2)
+            {
+                // Add the item to the list
+                shoppingcart.Add(item);
+                item.btnText = "-";
+
+                // Subscribe to the events with correct syntax
+                item.ButtonClicked += (sender, e) => CustomItem_ButtonClicked2(sender, e, shoppingcart.IndexOf(item));
+
+                panel2.Controls.Add(item);
+                updatePrice();
+            }
+
         }
 
-        // Method to remove a CustomItem from the list and panel by index
-        public void RemoveCustomItem(int index)
+        public void RemoveCustomItem(int index, int what)
         {
-            if (index >= 0 && index < customItems.Count)
+            if (what == 1)
             {
-                // Unsubscribe from the events
-                customItems[index].AddButtonClicked -= CustomItem_AddButtonClicked;
-                customItems[index].SubtractButtonClicked -= CustomItem_SubtractButtonClicked;
+                if (index >= 0 && index < customItems.Count)
+                {
+                    // Unsubscribe from the events with correct syntax
+                    customItems[index].ButtonClicked -= (sender, e) => CustomItem_ButtonClicked(sender, e, index);
 
-                panel.Controls.Remove(customItems[index]);
-                customItems.RemoveAt(index);
+                    panel1.Controls.Remove(customItems[index]);
+                    customItems.RemoveAt(index);
+                }
+            }
+            else if(what == 2)
+            {
+                if (index >= 0 && index < shoppingcart.Count)
+                {
+                    // Unsubscribe from the events with correct syntax
+                    shoppingcart[index].ButtonClicked -= (sender, e) => CustomItem_ButtonClicked(sender, e, index);
+
+                    panel2.Controls.Remove(shoppingcart[index]);
+                    shoppingcart.RemoveAt(index);
+                    updatePrice();
+                }
             }
         }
 
         // Event handler for the Add button click event
-        private void CustomItem_AddButtonClicked(object sender, EventArgs e)
+        private void CustomItem_ButtonClicked(object sender, EventArgs e, int index)
         {
-            MessageBox.Show("Add button clicked on item!");
+            AddCustomItem(customItems[index].copy(),2);
         }
 
-        // Event handler for the Subtract button click event
-        private void CustomItem_SubtractButtonClicked(object sender, EventArgs e)
+        private void CustomItem_ButtonClicked2(object sender, EventArgs e, int index)
         {
-            MessageBox.Show("Subtract button clicked on item!");
+            RemoveCustomItem(index, 2);
         }
 
-        // Other methods and event handlers...
+        private void CustomItem_ButtonClicked3(object sender, EventArgs e)
+        {
+            MessageBox.Show("Thank you for your order! You have to pay " + calculatePrice() + "€");
+            while (shoppingcart.Count != 0)
+            {
+                RemoveCustomItem(0, 2);
+            }
+            updatePrice();
+        }
+
+        private void updatePrice()
+        {
+            label.setText("Preis: " + calculatePrice() + "€");
+        }
+
+        private double calculatePrice()
+        {
+
+            double pricea = 0;
+            foreach (CustomItem item in shoppingcart)
+            {
+                pricea += item.price;
+            }
+            return pricea;
+        }
+
     }
 }

@@ -1,5 +1,4 @@
 {
-    "images": "C:\\Users\\Linus\\OneDrive\\Dokumente\\GitHub\\Team6IT26A\\4FunBike\\data\\images",
     "products": {
         "kat1": [
             {
@@ -16,15 +15,7 @@
             },
             {
                 "name": "Mountainbike",
-                "preis": 3
-            },
-            {
-                "name": "Mountainbike",
-                "preis": 3
-            },
-            {
-                "name": "Mountainbike",
-                "preis": 3
+                "preis": 532
             },
             {
                 "name": "Mountainbike",

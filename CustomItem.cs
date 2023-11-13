@@ -1,7 +1,4 @@
 // CustomItem.cs
-using System;
-using System.Drawing;
-using System.Windows.Forms;
 
 namespace _4FunBike
 {
@@ -10,8 +7,8 @@ namespace _4FunBike
         private PictureBox pictureBox;
         private Label lblName;
         private Label lblPrice;
-        private Button btnAdd;
-        private Button btnSubtract;
+        private Button btn;
+        public double price;
 
         public CustomItem()
         {
@@ -39,57 +36,36 @@ namespace _4FunBike
                 Size = new Size(100, 100), // Make sure this size accommodates your text.
             };
 
-            btnAdd = new Button
+            btn = new Button
             {
-                Text = "+",
                 Size = new Size(50, 100), // The width and height can be adjusted as needed.
             };
-
-            btnSubtract = new Button
-            {
-                Text = "-",
-                Size = new Size(50, 100), // The width and height can be adjusted as needed.
-            };
-
-            btnAdd.Click += BtnAdd_Click;
-            btnSubtract.Click += BtnSubtract_Click;
+            btn.Click += Btn_Click;
 
             // Add the controls to the UserControl's Controls collection.
             Controls.Add(pictureBox);
             Controls.Add(lblName);
             Controls.Add(lblPrice);
-            Controls.Add(btnAdd);
-            Controls.Add(btnSubtract);
+            Controls.Add(btn);
 
             // Layout the controls horizontally.
-            int spacing = 5;
+            int spacing = 4;
             lblName.Location = new Point(pictureBox.Right + spacing, 0);
             lblPrice.Location = new Point(lblName.Right + spacing, 0);
-            btnAdd.Location = new Point(lblPrice.Right + spacing, 0);
-            btnSubtract.Location = new Point(btnAdd.Right + spacing, 0);
+            btn.Location = new Point(lblPrice.Right + spacing, 0);
 
             // Set the size of the UserControl to fit its contents.
-            Size = new Size(btnSubtract.Right, pictureBox.Height);
+            Size = new Size(btn.Right, pictureBox.Height);
         }
 
-        private void BtnAdd_Click(object sender, EventArgs e)
+        private void Btn_Click(object sender, EventArgs e)
         {
-            OnAddButtonClicked(EventArgs.Empty);
+            OnBtn_Click(EventArgs.Empty);
         }
 
-        private void BtnSubtract_Click(object sender, EventArgs e)
+        protected virtual void OnBtn_Click(EventArgs e)
         {
-            OnSubtractButtonClicked(EventArgs.Empty);
-        }
-
-        protected virtual void OnAddButtonClicked(EventArgs e)
-        {
-            AddButtonClicked?.Invoke(this, e);
-        }
-
-        protected virtual void OnSubtractButtonClicked(EventArgs e)
-        {
-            SubtractButtonClicked?.Invoke(this, e);
+            ButtonClicked?.Invoke(this, e);
         }
 
         public Image ItemImage
@@ -104,13 +80,34 @@ namespace _4FunBike
             set => lblName.Text = value;
         }
 
+        public string btnText
+        {
+            get => btn.Text;
+            set => btn.Text = value;
+        }
+
         public double Price
         {
             get => double.TryParse(lblPrice.Text, out var price) ? price : 0;
-            set => lblPrice.Text = $"{value:C}";
+            set
+            {
+                lblPrice.Text = $"{value:C}";
+                price = value;
+            }
         }
 
-        public event EventHandler AddButtonClicked;
-        public event EventHandler SubtractButtonClicked;
+        public CustomItem copy()
+        {
+            CustomItem item = new CustomItem
+            {
+                Name = this.Name,
+                Price = this.price,
+                ItemImage = this.ItemImage,
+                btnText = this.btnText
+            };
+            return item;
+        }
+
+        public event EventHandler ButtonClicked;
     }
 }

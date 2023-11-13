@@ -8,13 +8,44 @@ namespace _4FunBike
     public class DataHolder
     {
         private static DataHolder instance;
-        public static String DataFilePath = "C:\\Users\\Linus\\OneDrive\\Dokumente\\GitHub\\Team6IT26A\\4FunBike\\data\\data.json";
+        public static String DataFilePath;
         public String ImageFolderPath { get; set; }
         public List<Category> CatProducts { get; set; }
         public List<Product> Products { get; set; }
 
+        public void SelectDataFile()
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog
+            {
+                InitialDirectory = @"C:\", // You can set this to a default directory
+                Title = "Browse for data.json",
+
+                CheckFileExists = true,
+                CheckPathExists = true,
+
+                DefaultExt = "json",
+                Filter = "json files (*.json)|*.json",
+                FilterIndex = 2,
+                RestoreDirectory = true,
+
+                ReadOnlyChecked = true,
+                ShowReadOnly = true
+            };
+
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                DataFilePath = openFileDialog.FileName;
+            }
+            else
+            {
+                MessageBox.Show("No file selected. Exiting application.");
+                System.Environment.Exit(1);
+            }
+        }
+
         public void ReadFile()
         {
+            SelectDataFile();
             if (File.Exists(DataFilePath))
             {
                 var jsonData = File.ReadAllText(DataFilePath);
@@ -24,7 +55,7 @@ namespace _4FunBike
                 };
                 var parsedData = JsonSerializer.Deserialize<JsonDataStructure>(jsonData, options);
 
-                ImageFolderPath = parsedData.images;
+                ImageFolderPath = DataFilePath.Replace("data.json", "images");
 
                 CatProducts = new List<Category>();
                 Products = new List<Product>();

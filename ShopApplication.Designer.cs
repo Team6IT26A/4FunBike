@@ -28,12 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
-            bindingSource1 = new BindingSource(components);
             tabControl1 = new TabControl();
             productsTab = new TabPage();
             shoppingcardTab = new TabPage();
-            ((System.ComponentModel.ISupportInitialize)bindingSource1).BeginInit();
             tabControl1.SuspendLayout();
             SuspendLayout();
             // 
@@ -74,15 +71,12 @@
             ClientSize = new Size(800, 450);
             Controls.Add(tabControl1);
             Name = "ShopApplication";
-            Text = "Form1";
-            ((System.ComponentModel.ISupportInitialize)bindingSource1).EndInit();
+            Text = "ShopApplication";
             tabControl1.ResumeLayout(false);
             ResumeLayout(false);
         }
 
         #endregion
-
-        private BindingSource bindingSource1;
         private TabControl tabControl1;
         private TabPage productsTab;
         private TabPage shoppingcardTab;
