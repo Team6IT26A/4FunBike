@@ -13,11 +13,11 @@ Ein Einkaufswagen-Programm, das Produkte in Listenform darstellt und es dem Benu
 
 ## Features:
 
-- Ein großes Quadrat, welches Produkte in Listenform darstellt. Jedes Produkt verfügt über ein Bild, Namen, Beschreibung, Preis und einen "Hinzufügen"-Button.
-- Ein Warenkorb-Symbol oben in der Anwendung. 
-- Links befindet sich ein Dropdown-Menü mit verschiedenen Kategorien.
-- Unter "Aktueller Warenkorb" kann der Kunde alle hinzugefügten Produkte sowie die Gesamtkosten einsehen. 
-- Die Option "Zur Kasse" ermöglicht es dem Kunden, den Kauf abzuschließen.
+- Ein großes Quadrat, welches Produkte in Listenform darstellt. Jedes Produkt verfügt über ein Bild, Namen, Preis und einen "Hinzufügen"-Button.
+- Ein Warenkorb-Tab oben in der Anwendung. 
+- Unter dem Warenkorb-Tab kann der Kunde alle hinzugefügten Produkte sowie die Gesamtkosten einsehen
+- Desweiteren können im Warenkorb Produkte wieder entfernt werde, wobei der Gesamtpreis sich automatisch anpasst.
+- Die Option "hier klicken zum Bestellen" ermöglicht es dem Kunden, den Kauf abzuschließen und seinen Warenkorb zu leeren.
 
 ## Ein/Ausgabefelder:
 
