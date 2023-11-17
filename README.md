@@ -13,6 +13,7 @@ Ein Einkaufswagen-Programm, das Produkte in Listenform darstellt und es dem Benu
 
 ## Features:
 
+- Einlesen der daten Datei durch einen FileChooser
 - Ein großes Quadrat, welches Produkte in Listenform darstellt. Jedes Produkt verfügt über ein Bild, Namen, Preis und einen "Hinzufügen"-Button.
 - Ein Warenkorb-Tab oben in der Anwendung. 
 - Unter dem Warenkorb-Tab kann der Kunde alle hinzugefügten Produkte sowie die Gesamtkosten einsehen
