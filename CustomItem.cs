@@ -20,6 +20,7 @@ namespace _4FunBike
             pictureBox = new PictureBox
             {
                 SizeMode = PictureBoxSizeMode.StretchImage,
+
                 BorderStyle = BorderStyle.FixedSingle,
                 Size = new Size(100, 100), // Fixed size for the picture box.
             };
