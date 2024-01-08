@@ -56,6 +56,10 @@ namespace _4FunBike
                 };
                 var parsedData = JsonSerializer.Deserialize<JsonDataStructure>(jsonData, options);
 
+
+
+
+
                 ImageFolderPath = DataFilePath.Replace("data.json", "images");
 
                 CatProducts = new List<Category>();
